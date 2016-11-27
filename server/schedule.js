@@ -2,15 +2,11 @@ const scheduleController = {
 	getData: (req, res, next) => {
     let busSchedule = {};
 
-      for (let i = 0; i < 10; i++){
-        busSchedule['stop' + i.toString()] = {};
-      }
+    for (let i = 0; i < 10; i++){
+      busSchedule['stop' + i.toString()] = {};
+      //TODO: run getStop for each stop. need to populate an array of route1starts
+    }
 
-      for (let stop in busSchedule) {
-        stop.route1 = [];
-        stop.route2 = [];
-        stop.route3 = [];
-      }
     function getStop(stop, route1start){
       //populate times for stop 1 route 1
       function getRoute(route){
@@ -23,17 +19,19 @@ const scheduleController = {
           start = route1start + 4;
         }
 
+        busSchedule[`stop${stop}`][`route${route}`] = [];
+
         for (let i = start; i < 1440; i+=15){
           if (i < 60) {
-            busSchedule[stop][`route${route}`].push('00:' + i.toString());
+            busSchedule[`stop${stop}`][`route${route}`].push('00:' + i.toString());
           } else {
             let hour = Math.floor(i / 60);
             let min = i % 60;
-            busSchedule[stop][`route${route}`].push(`${hour}.toString():${min}.toString()`);
+            busSchedule[`stop${stop}`][`route${route}`].push(`${hour}.toString():${min}.toString()`);
           }
         }
       }
-      
+      //get bus times for all 3 routes for this stop
       for (let i = 1; i < 4; i++){
         getRoute(i);
       }
