@@ -1,11 +1,17 @@
 const scheduleController = {
 	getData: (req, res, next) => {
     let busSchedule = {};
-
+    let route1start = [];
     for (let i = 0; i < 10; i++){
-      busSchedule['stop' + i.toString()] = {};
+      busSchedule['stop' + (i+1).toString()] = {};
+      route1start.push(i*2);
+      getStop((i+1),route1start[i]);
       //TODO: run getStop for each stop. need to populate an array of route1starts
     }
+    console.log('NEW SECTION!!');
+    console.log('route1start:', route1start);
+
+    
 
     function getStop(stop, route1start){
       //populate times for stop 1 route 1
@@ -22,12 +28,28 @@ const scheduleController = {
         busSchedule[`stop${stop}`][`route${route}`] = [];
 
         for (let i = start; i < 1440; i+=15){
+          var j;
           if (i < 60) {
-            busSchedule[`stop${stop}`][`route${route}`].push('00:' + i.toString());
+            if (i < 10){
+              j = '0' + i.toString();
+            } else {
+              j = i.toString();
+            }
+            busSchedule[`stop${stop}`][`route${route}`].push(`00:${j}`);
           } else {
             let hour = Math.floor(i / 60);
+            if (hour < 10){
+              hour = '0' + hour.toString();
+            } else {
+              hour = hour.toString();
+            }
             let min = i % 60;
-            busSchedule[`stop${stop}`][`route${route}`].push(`${hour}.toString():${min}.toString()`);
+            if (min < 10){
+              min = '0' + min.toString();
+            } else {
+              min = min.toString();
+            }
+            busSchedule[`stop${stop}`][`route${route}`].push(`${hour}:${min}`);
           }
         }
       }
@@ -37,6 +59,7 @@ const scheduleController = {
       }
     } //end getStop
 
+    
     // function getStopOne(){
     //   //populate times for stop 1 route 1
     //   for (let i = 0; i < 1440; i+=15){
