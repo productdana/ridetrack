@@ -42,7 +42,7 @@
   - get current time
   - make sure current time and API times are in a format that can be compared numerically
   - repeat below for each of the 3 routes:
-    - for current stop & route, call server API & find the first time that is later than the current time
+    - for current stop & route, call server API & find the first time (binary search? or do I need a better way to store bus times instead of one giant array?) that is later than the current time
     - subtract current time from API time to get the number of minutes until the next bus for that route
       - display that number on index.html page
       - take that number above and add 15. display that as the 2nd number on index.html
@@ -56,3 +56,4 @@
 
  <!-- figure out how to make index.js connect to index.html -->
  <!-- is it possible to call the API only once and cache it?? -->
+ <!-- see if moment.js will come in handy. is graphQL overkill? -->
