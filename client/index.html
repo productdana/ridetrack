@@ -37,3 +37,22 @@
   <script src="index.js"></script>
 </body>
 </html>
+
+<!-- to get the number of minutes until the bus arrives:
+  - get current time
+  - make sure current time and API times are in a format that can be compared numerically
+  - repeat below for each of the 3 routes:
+    - for current stop & route, call server API & find the first time that is later than the current time
+    - subtract current time from API time to get the number of minutes until the next bus for that route
+      - display that number on index.html page
+      - take that number above and add 15. display that as the 2nd number on index.html
+ -->
+
+ <!-- once the data above can be grabbed statically, change the clock to constantly update and make the minutes real tie update as well -->
+
+ <!-- either use dropdown or number selector to choose stop. once clicked/selected, it will call the API to get the minutes until next two buses arrive per route -->
+
+ <!-- refactor to be done in react, add styling, and make responsive. pretend this is going to be used on someone's phone. -->
+
+ <!-- figure out how to make index.js connect to index.html -->
+ <!-- is it possible to call the API only once and cache it?? -->
